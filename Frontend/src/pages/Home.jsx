@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Truck, Shield, Clock } from "lucide-react";
 import products, { categories } from "../data/products";
 import ProductCard from "../components/ProductCard";
+import heroImg from '../assets/hero/heroimg2.jpg'
 
 const Home = ({ searchQuery, isDarkMode }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -15,7 +16,6 @@ const Home = ({ searchQuery, isDarkMode }) => {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-400 to-blue-500 overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="max-w-7xl mx-auto px-4 py-20 flex flex-col lg:flex-row items-center justify-between relative z-10">
@@ -54,21 +54,15 @@ const Home = ({ searchQuery, isDarkMode }) => {
           </div>
 
           <img
-            src="/Images/newimg.jpg"
+            src={heroImg}
             alt="Fresh groceries"
             className="w-full lg:w-1/2 mt-8 lg:mt-0 rounded-lg shadow-2xl hover:scale-105 transition-transform duration-500"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "https://placehold.co/600x400/E0F2F7/000000?text=Guwahati+Grocers";
-            }}
           />
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white/20 to-transparent"></div>
       </section>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Categories */}
         <div className="mb-8">
           <h2
             className={`text-2xl font-bold mb-6 ${
@@ -96,21 +90,18 @@ const Home = ({ searchQuery, isDarkMode }) => {
           </div>
         </div>
 
-        {/* Products Count */}
         <div className="mb-6">
           <p className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
             Showing {filteredProducts.length} products
           </p>
         </div>
 
-        {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} isDarkMode={isDarkMode} />
           ))}
         </div>
 
-        {/* No Products Found */}
         {filteredProducts.length === 0 && (
           <div
             className={`text-center py-16 ${

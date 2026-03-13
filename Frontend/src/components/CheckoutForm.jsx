@@ -66,8 +66,8 @@ const CheckoutForm = () => {
 
   if (showOrderConfirmation && orderDetails) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
-        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-zoom-in">
+      <div className="fixed inset-0 bg-white/30 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center">
           <h2 className="text-4xl font-bold text-blue-600 mb-4">Order Placed! 🎉</h2>
           <p className="text-lg mb-6 text-gray-800">
             Thank you, <strong>{orderDetails.customerName}</strong>! Your order
@@ -97,8 +97,8 @@ const CheckoutForm = () => {
   if (!showCheckoutForm) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-slide-in-right relative">
+    <div className="fixed inset-0 bg-white/30 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 relative">
         <button
           onClick={() => setShowCheckoutForm(false)}
           className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-300 hover:scale-110"

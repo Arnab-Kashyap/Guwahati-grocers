@@ -14,13 +14,12 @@ const CartSidebar = ({ isDarkMode }) => {
   if (!isCartOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+    <div className="fixed inset-0 bg-white/30 backdrop-blur-md z-50">
       <div
         className={`fixed right-0 top-0 h-full w-full max-w-md shadow-2xl animate-slide-in-right transition-colors duration-300 ${
           isDarkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
-        {/* Header */}
         <div
           className={`p-4 flex justify-between items-center border-b ${
             isDarkMode ? "border-gray-700" : "border-gray-200"
@@ -44,7 +43,6 @@ const CartSidebar = ({ isDarkMode }) => {
           </button>
         </div>
 
-        {/* Cart Items */}
         <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-8rem)]">
           {cart.length === 0 ? (
             <div
@@ -98,7 +96,6 @@ const CartSidebar = ({ isDarkMode }) => {
                 </div>
               ))}
 
-              {/* Total & Checkout */}
               <div
                 className={`border-t pt-4 mt-4 ${
                   isDarkMode ? "border-gray-700" : "border-gray-200"

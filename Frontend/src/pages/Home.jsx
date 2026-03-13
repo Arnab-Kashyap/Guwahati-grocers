@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Truck, Shield, Clock } from "lucide-react";
-import products, { categories } from "../data/products";
+import { fetchProducts } from "../api/api";
+import { categories } from "../data/products";
 import ProductCard from "../components/ProductCard";
 import heroImg from '../assets/hero/heroimg2.jpg'
 
 const Home = ({ searchQuery, isDarkMode }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts().then((data) => setProducts(data));
+  }, []);
 
   const filteredProducts = products.filter(
     (product) =>
@@ -98,7 +104,7 @@ const Home = ({ searchQuery, isDarkMode }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} isDarkMode={isDarkMode} />
+            <ProductCard key={product._id} product={product} isDarkMode={isDarkMode} />
           ))}
         </div>
 

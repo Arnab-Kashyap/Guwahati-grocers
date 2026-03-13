@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { placeOrder } from "../api/api";
 import confetti from "canvas-confetti";
 
 const CheckoutForm = () => {
   const {
+    cart,
     showCheckoutForm,
     setShowCheckoutForm,
     showOrderConfirmation,
@@ -20,7 +22,7 @@ const CheckoutForm = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [formError, setFormError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (customerName.trim() === "" || address.trim() === "") {
       setFormError("Please fill in your full name and address.");
@@ -31,6 +33,22 @@ const CheckoutForm = () => {
       return;
     }
     setFormError("");
+
+    const orderData = {
+      items: cart.map((item) => ({
+        productId: item._id,
+        name: item.name,
+        price: item.price,
+        quantity: 1,
+      })),
+      totalAmount: parseFloat(calculateTotal()),
+      customerName,
+      customerPhone: phoneNumber,
+      deliveryAddress: address,
+    };
+
+    await placeOrder(orderData);
+
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     handleOrderPlaced({
       customerName,
@@ -39,14 +57,13 @@ const CheckoutForm = () => {
       paymentMethod,
       total: calculateTotal(),
     });
-    // Reset form
+
     setCustomerName("");
     setAddress("");
     setPhoneNumber("");
     setPaymentMethod("card");
   };
 
-  // Order Confirmation Modal
   if (showOrderConfirmation && orderDetails) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
@@ -77,13 +94,11 @@ const CheckoutForm = () => {
     );
   }
 
-  // Checkout Form Modal
   if (!showCheckoutForm) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 animate-slide-in-right relative">
-        {/* Close Button */}
         <button
           onClick={() => setShowCheckoutForm(false)}
           className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all duration-300 hover:scale-110"
@@ -97,7 +112,6 @@ const CheckoutForm = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
           <input
             type="text"
             placeholder="Full Name"
@@ -108,7 +122,6 @@ const CheckoutForm = () => {
             aria-label="Full Name"
           />
 
-          {/* Address */}
           <textarea
             placeholder="Delivery Address"
             value={address}
@@ -119,7 +132,6 @@ const CheckoutForm = () => {
             aria-label="Delivery Address"
           />
 
-          {/* Phone */}
           <input
             type="tel"
             placeholder="Phone Number (10 digits)"
@@ -132,7 +144,6 @@ const CheckoutForm = () => {
             aria-label="Phone Number"
           />
 
-          {/* Payment Method */}
           <div>
             <label className="block font-semibold text-gray-700 mb-2">
               Payment Method
@@ -163,12 +174,10 @@ const CheckoutForm = () => {
             </div>
           </div>
 
-          {/* Error */}
           {formError && (
             <p className="text-red-500 text-sm text-center">{formError}</p>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105"

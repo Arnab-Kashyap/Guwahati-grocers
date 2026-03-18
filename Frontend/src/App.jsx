@@ -7,6 +7,7 @@ import CartSidebar from "./components/CartSidebar";
 import CheckoutForm from "./components/CheckoutForm";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Payment from "./pages/Payment";
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,6 +35,23 @@ const App = () => {
             <Route
               path="/login"
               element={<Login isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/payment"
+              element={
+                <>
+                  <Header
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    isDarkMode={isDarkMode}
+                    toggleDarkMode={toggleDarkMode}
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                  />
+                  <Payment isDarkMode={isDarkMode} />
+                  <Footer />
+                </>
+              }
             />
             <Route
               path="/"

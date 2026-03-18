@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, Plus, Minus } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const CartSidebar = ({ isDarkMode }) => {
@@ -7,11 +7,14 @@ const CartSidebar = ({ isDarkMode }) => {
     isCartOpen,
     setIsCartOpen,
     removeFromCart,
+    updateQuantity,
     calculateTotal,
     handleProceedToCheckout,
   } = useCart();
 
   if (!isCartOpen) return null;
+
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <div className="fixed inset-0 bg-white/30 backdrop-blur-md z-50">
@@ -30,7 +33,7 @@ const CartSidebar = ({ isDarkMode }) => {
               isDarkMode ? "text-white" : "text-black"
             }`}
           >
-            Shopping Cart ({cart.length})
+            Shopping Cart ({totalItems})
           </h2>
           <button
             onClick={() => setIsCartOpen(false)}
@@ -60,7 +63,7 @@ const CartSidebar = ({ isDarkMode }) => {
             <>
               {cart.map((item) => (
                 <div
-                  key={item.cartItemId}
+                  key={item._id}
                   className={`flex items-center space-x-4 p-3 rounded-lg ${
                     isDarkMode ? "bg-gray-700/50" : "bg-gray-50"
                   }`}
@@ -76,18 +79,39 @@ const CartSidebar = ({ isDarkMode }) => {
                   />
                   <div className="flex-1">
                     <h3
-                      className={`font-semibold ${
+                      className={`font-semibold text-sm ${
                         isDarkMode ? "text-white" : "text-black"
                       }`}
                     >
                       {item.name}
                     </h3>
-                    <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>
-                      ₹{item.price}
+                    <p className={`text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                      ₹{(item.price * item.quantity).toFixed(2)}
                     </p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                          isDarkMode ? "bg-gray-600 hover:bg-gray-500 text-white" : "bg-gray-200 hover:bg-gray-300 text-black"
+                        }`}
+                      >
+                        <Minus className="h-3 w-3" />
+                      </button>
+                      <span className={`text-sm font-semibold w-6 text-center ${isDarkMode ? "text-white" : "text-black"}`}>
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
+                          isDarkMode ? "bg-gray-600 hover:bg-gray-500 text-white" : "bg-gray-200 hover:bg-gray-300 text-black"
+                        }`}
+                      >
+                        <Plus className="h-3 w-3" />
+                      </button>
+                    </div>
                   </div>
                   <button
-                    onClick={() => removeFromCart(item.cartItemId)}
+                    onClick={() => removeFromCart(item._id)}
                     className="text-red-500 hover:text-red-600 transition-all duration-300 hover:scale-110 p-1"
                     aria-label={`Remove ${item.name} from cart`}
                   >

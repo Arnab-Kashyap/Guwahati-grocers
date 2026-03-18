@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingBasket, Zap } from "lucide-react";
+import { loginUser, registerUser } from "../api/api";
 
 const Login = ({ isDarkMode }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -10,7 +11,7 @@ const Login = ({ isDarkMode }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError("Please fill in all fields.");
@@ -21,7 +22,26 @@ const Login = ({ isDarkMode }) => {
       return;
     }
     setError("");
-    navigate("/");
+
+    if (isLogin) {
+      const data = await loginUser({ email, password });
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/");
+      } else {
+        setError(data.message || "Login failed");
+      }
+    } else {
+      const data = await registerUser({ name, email, password });
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/");
+      } else {
+        setError(data.message || "Registration failed");
+      }
+    }
   };
 
   return (

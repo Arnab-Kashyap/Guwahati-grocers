@@ -1,5 +1,6 @@
 import { X, Plus, Minus } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const CartSidebar = ({ isDarkMode }) => {
   const {
@@ -11,6 +12,18 @@ const CartSidebar = ({ isDarkMode }) => {
     calculateTotal,
     handleProceedToCheckout,
   } = useCart();
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsCartOpen(false);
+      navigate("/login");
+    } else {
+      handleProceedToCheckout();
+    }
+  };
 
   if (!isCartOpen) return null;
 
@@ -134,7 +147,7 @@ const CartSidebar = ({ isDarkMode }) => {
                   <span>₹{calculateTotal()}</span>
                 </div>
                 <button
-                  onClick={handleProceedToCheckout}
+                  onClick={handleCheckout}
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-md font-semibold hover:bg-green-700 transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                 >
                   Proceed to Checkout

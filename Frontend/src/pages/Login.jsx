@@ -99,8 +99,16 @@ const Login = ({ isDarkMode }) => {
         </div>
       </div>
 
-      <div className={`w-full lg:w-2/5 flex flex-col justify-center items-center px-8 ${isDarkMode ? "bg-gray-900" : "bg-white"}`}>
-        <div className={`w-full max-w-md rounded-2xl p-10 ${isDarkMode ? "bg-gray-800 shadow-2xl" : "shadow-xl border border-gray-100 bg-white"}`}>
+      <div className={`w-full lg:w-2/5 flex flex-col lg:justify-center items-center ${isDarkMode ? "bg-gray-900" : "bg-gray-50"}`}>
+        <div className="lg:hidden w-full bg-gradient-to-r from-blue-700 to-green-500 py-8 px-8 text-center">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <ShoppingBasket className="h-6 w-6 text-white" />
+            <h1 className="text-2xl font-extrabold text-white">Guwahati Grocers</h1>
+          </div>
+          <p className="text-white/70 text-sm">Fresh & Organic Foods Delivered</p>
+        </div>
+
+        <div className={`w-full max-w-md rounded-2xl p-8 mx-4 my-6 ${isDarkMode ? "bg-gray-800 shadow-2xl" : "shadow-xl border border-gray-100 bg-white"}`}>
           <div className="mb-8">
             <p className={`text-xl font-semibold ${isDarkMode ? "text-white" : "text-gray-800"}`}>
               {isLogin ? "Welcome back" : "Create account"}

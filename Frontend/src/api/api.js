@@ -74,7 +74,7 @@ const imageMap = {
   "brush.jpg": brush,
 };
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://guwahati-grocers.onrender.com/api";
 
 export const fetchProducts = async () => {
   const response = await fetch(`${BASE_URL}/products`);

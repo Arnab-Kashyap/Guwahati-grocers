@@ -1,28 +1,29 @@
 # 🛒 Guwahati Grocers
 
-**Guwahati Grocers** is a modern grocery shopping web application designed to provide a clean and simple way to browse daily essential products online.  
-The goal of this project is to create a smooth and user-friendly grocery shopping experience.
-
-Currently, the project mainly includes the **frontend implementation**, while the **backend development is still in progress**.
+**Guwahati Grocers** is a full-stack grocery shopping web application designed to provide a clean and seamless way to browse and order daily essential products online.
 
 ---
 
 ## 📌 Project Status
 
-- ✅ Frontend: Completed and working  
-- 🚧 Backend: Under development  
-
-The current version demonstrates the UI and frontend functionality of the application. Backend features like authentication, product management, and order processing will be added later.
+- ✅ Frontend: Completed  
+- ✅ Backend: Completed  
+- ✅ Authentication: Completed  
+- ✅ Deployed: Live on Vercel + Render  
 
 ---
 
 ## ✨ Features
 
 - 🛍️ Modern and responsive grocery store interface  
-- 📦 Product browsing layout  
-- 🧾 Category-based product filtering  
-- 🛒 Shopping cart sidebar  
-- 🧑‍💻 Component-based React architecture  
+- 📦 Product browsing with category-based filtering  
+- 🛒 Shopping cart with quantity controls and local storage persistence  
+- 🔐 User authentication (Register/Login/Logout)  
+- 👤 Profile section with user details  
+- 🧾 Checkout with delivery details  
+- 💳 Payment page (Card, UPI, Cash on Delivery)  
+- 📋 Order saving to MongoDB  
+- 🌙 Dark mode support  
 - ⚡ Fast development setup using Vite  
 
 ---
@@ -32,70 +33,84 @@ The current version demonstrates the UI and frontend functionality of the applic
 ### Frontend
 - ⚛️ React  
 - ⚡ Vite  
-- 📜 JavaScript  
-- 🎨 CSS  
+- 🎨 Tailwind CSS  
+- 🔗 React Router DOM  
 
-### Backend (Planned)
+### Backend
 - 🟢 Node.js  
 - 🚂 Express  
-- 🗄️ Database integration  
-- 🔗 REST API development  
+- 🗄️ MongoDB Atlas  
+- 🔐 JWT Authentication  
+- 🔒 Bcrypt Password Encryption  
 
 ---
 
 ## 📂 Project Structure
-
 ```
 Guwahati-grocers/
 │
-├── frontend/
+├── Frontend/
 │   ├── public/
 │   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
 │   │   ├── components/
 │   │   ├── context/
 │   │   ├── data/
 │   │   ├── pages/
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   │
 │   ├── package.json
 │   └── vite.config.js
 │
-└── backend/
-    (backend development not completed yet)
+└── Backend/
+    ├── models/
+    ├── routes/
+    ├── server.js
+    ├── seeder.js
+    └── package.json
 ```
 
 ---
 
-## 🚀 Running the Project
+## 🚀 Running the Project Locally
+
+### 1️⃣ Clone the repository
+```
+git clone https://github.com/Arnab-Kashyap/Guwahati-grocers.git
+```
+
+### 2️⃣ Setup Backend
+```
+cd Guwahati-grocers/Backend
+npm install
+node server.js
+```
+
+### 3️⃣ Setup Frontend
+```
+cd Guwahati-grocers/Frontend
+npm install
+npm run dev
+```
+
+The project will run on:
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5000
 
 ---
 
-## 🚀 Running the Project
+## 🌐 Live Demo
 
-### 1️⃣ Clone the repository
-git clone https://github.com/Arnab-Kashyap/Guwahati-grocers.git
-
-### 2️⃣ Navigate to the frontend folder
-cd Guwahati-grocers/frontend
-
-### 3️⃣ Install dependencies
-npm install
-
-### 4️⃣ Start the development server
-npm run dev
-
-The project will run on:
-
-http://localhost:5173
+- Frontend: https://guwahati-grocers.vercel.app
+- Backend: https://guwahati-grocers.onrender.com
 
 ---
 
 ## 🔮 Future Improvements
 
-- 🔐 User authentication system  
-- 🗄️ Product database integration  
-- 📦 Order management system  
-- 💳 Payment gateway integration  
-- 🛠️ Admin dashboard
-
+- 📱 Full mobile optimization  
+- 📧 Email confirmation after order  
+- 🛠️ Admin dashboard  
+- 💳 Razorpay payment integration  
+- ⭐ Product reviews and ratings
